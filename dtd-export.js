@@ -13,6 +13,7 @@ while (app.documents.length) {
 // Initiatlize variables
 var numFiles = 4;
 var thumbsArray = [];
+var mediumFileArray = [];
 var fullSizeArray = [];
 var thumbsFileName;
 var fullSizeFileName;
@@ -26,9 +27,11 @@ var matteColor;
 
 // Populate arrays with the appropriate filenames
 for (var i = 1; i <= numFiles; i++) {
-  thumbsFileName   = "dtd-thumbs-" + i + ".psd";
-  fullSizeFileName = "dtd-full-size-" + i + ".psd";
+  thumbsFileName   = "dtd-200-" + i + ".psd";
+  mediumFileName   = "dtd-300-" + i + ".psd";
+  fullSizeFileName = "dtd-500-" + i + ".psd";
   thumbsArray.push(thumbsFileName);
+  mediumFileArray.push(mediumFileName);
   fullSizeArray.push(fullSizeFileName);
 }
 
@@ -50,8 +53,9 @@ exportJPGOptions.quality      = 80;
 
 // Loops through files and export
 for (var i = 0; i < numFiles; i++) {
-  exportToWeb("full-size", "GIF", i);
-  exportToWeb("thumbs", "GIF", i);
+  exportToWeb("500", "GIF", i);
+  exportToWeb("300", "GIF", i);
+  exportToWeb("200", "GIF", i);
 }
 
 // Function: exportToWeb
@@ -63,8 +67,13 @@ function exportToWeb(type, format, num) {
   matteColor = new RGBColor();
 
   // Determine which array and background color to use
-  if (type == 'full-size') {
+  if (type == '500') {
     artArray = fullSizeArray;
+    matteColor.red   = 255;
+    matteColor.green = 255;
+    matteColor.blue  = 255;
+  } else if (type == '300') {
+    artArray = mediumFileArray;
     matteColor.red   = 255;
     matteColor.green = 255;
     matteColor.blue  = 255;
